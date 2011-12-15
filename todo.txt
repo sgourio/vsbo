@@ -4,4 +4,4 @@ application.langs=fr,en
 
 Route:
 # Import vsbo routes
-*      /vsbo	                                module:vsbo
+*      /vsbo	
