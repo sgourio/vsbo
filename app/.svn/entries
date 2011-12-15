@@ -1,0 +1,87 @@
+10
+
+dir
+390
+svn+ssh://sgourio@localhost:23/home/sgourio/svn/vsbo/trunk/app
+svn+ssh://sgourio@localhost:23/home/sgourio/svn
+
+
+
+2011-11-22T22:48:48.153195Z
+390
+sgourio
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9836fc8f-8a17-4e04-9105-efdf0b518c79
+
+
+
+
+
+
+0
+
+beans
+dir
+
+controllers
+dir
+
+jobs
+dir
+
+models
+dir
+
+play.plugins
+file
+393
+
+
+
+2011-11-23T22:46:11.999000Z
+87966cac058d5f02cbab78cc01b12b8d
+2011-11-26T09:04:32.861702Z
+393
+sgourio
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+32
+
+services
+dir
+
+views
+dir
+

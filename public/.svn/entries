@@ -1,0 +1,44 @@
+10
+
+dir
+391
+svn+ssh://sgourio@localhost:23/home/sgourio/svn/vsbo/trunk/public
+svn+ssh://sgourio@localhost:23/home/sgourio/svn
+
+
+
+2011-11-22T22:49:04.980521Z
+391
+sgourio
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9836fc8f-8a17-4e04-9105-efdf0b518c79
+
+
+
+
+
+
+0
+
+images
+dir
+
+javascripts
+dir
+
+stylesheets
+dir
+

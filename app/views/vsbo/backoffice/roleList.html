@@ -1,0 +1,20 @@
+#{extends 'vsbo/layout.html' /}
+#{set title:'Home' /}
+#{set 'moreScripts'}
+#{/set}
+<div class="row">
+	<div class="span12">
+		<h3>&{ "vsbo.list.role.title" }</h3>
+		<ul>
+			<li>Admin</li>
+			#{list items:roleList, as:'role'}
+				<li><a href="@{vsbo.Backoffice.editRole(role.id)}">${role.name}</a></li>			
+			#{/list}
+		</ul>
+		<a href="@{vsbo.Backoffice.editRole()}" class="btn">&{ "vsbo.button.role.create" }</a>
+	</div>
+	
+</div>
+
+
+

@@ -1,0 +1,23 @@
+#{extends 'vsbo/layout.html' /}
+#{set title:'Home' /}
+#{set 'moreScripts'}
+#{/set}
+<div class="row">
+	<div class="span12">
+		<h1>Panneau de configuration</h1>
+		<em>Attention, les configurations sont changées à chaud et ne sont pas enregistrée dans le fichier "application.conf". Tout redémarrage entraine la réinitialisation de la configuration.</em>
+		<form action="@{vsbo.Backoffice.updateProperties()}" method="POST">
+			<fieldset>Liste des propriétés configurées</fieldset>
+				#{list items:properties.keys(), as:'prop'}
+					<div class="clearfix">
+			            <label for="xlInput">${prop}</label>
+			            <div class="input">
+				    		<input class="span8" id="${prop}" name="${prop}" size="30" type="text" value="${properties.get(prop)}" />
+		        	    </div>
+		          </div>	
+				#{/list}
+			<input type="submit" value="Valider" class="btn primary large"/>
+		</form>
+			
+	</div>
+</div>

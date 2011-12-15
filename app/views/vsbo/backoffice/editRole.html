@@ -1,0 +1,52 @@
+#{extends 'vsbo/layout.html' /}
+#{set title:'Home' /}
+#{set 'moreScripts'}
+#{/set}
+<div class="row">
+	<div class="span12">
+		#{ifnot role?.id}
+		    <h3>&{ "vsbo.new.role.title" }</h3>
+		#{/ifnot}
+		#{else}
+		    <h3>&{ "vsbo.edit.role.title" }</h3>
+		#{/else}
+		#{form @saveRole(role?.id)}
+			#{ifErrors}
+		        <p class="error">Merci de corriger les erreurs</p>
+		    #{/ifErrors}
+		    <div class="clearfix">
+		        #{field 'name'}
+		        <label>&{ "vsbo.role.name.fied" }: </label>
+		        <div class="input">
+		        	<input type="text" name="${field.name}" value="${role?.name}" class="${field.errorClass}" size="50" />
+		        </div>
+		        #{/field}
+		    </div>
+		    <div class="clearfix">
+		    	<label>&{ "vsbo.role.authorized.menus" }: </label>
+		    	<div class="input">
+			    	<ul class="inputs-list">
+			    	#{list items:menuList, as:'menu'}
+			    		<li>
+			    			<label for="menu_${menu.id}"><input type="checkbox" name="menu_${menu.id}" id="menu_${menu.id}" #{if menuRoleList?.contains(menu.id)}checked="true"#{/if}/> &{menu.text}</label>
+			    		#{ifnot menu.subMenuList.isEmpty() }
+						    <ul>
+						   	  #{list items:menu.subMenuList, as:'subMenu'}
+						      	<li><label for="subMenu_${subMenu.id}"><input type="checkbox" name="subMenu_${subMenu.id}" id="subMenu_${subMenu.id}" #{if menuRoleList?.contains(subMenu.id)}checked="true"#{/if}/> &{ subMenu.text }</label></li>
+						      #{/list}
+						    </ul>
+		            	 #{/ifnot}
+		            	 </li>
+			    	#{/list}
+			    	</ul>
+		    	</div>
+		    </div>
+		    <input type="submit" value="&{ 'vsbo.button.save' }" class="btn primary"/>
+		#{/form}
+		
+	</div>
+	
+</div>
+
+
+

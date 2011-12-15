@@ -1,0 +1,4 @@
+self: play -> vsbo 0.1
+
+require:
+    - play

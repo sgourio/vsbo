@@ -1,0 +1,7 @@
+- language:
+in application config
+application.langs=fr,en
+
+Route:
+# Import vsbo routes
+*      /vsbo	                                module:vsbo

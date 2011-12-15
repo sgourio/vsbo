@@ -1,0 +1,36 @@
+#{extends 'vsbo/layout.html' /}
+#{set title:'Home' /}
+#{set 'moreScripts'}
+#{/set}
+<div class="row">
+	<div class="span12">
+		<h1>&{"vsbo.index.title", play.configuration.getProperty("application.name")}</h1>
+	</div>
+</div>
+#{if play.mode.name() == 'DEV'}
+	<div class="row">
+		<div class="span15 offset1 dev">
+			<div class="alert-message block-message info">
+				<p>> This message is only displayed in dev mode:</p>
+				<h1>How to add a new menu ?</h1>
+				<p>
+					1. Add a new class extends Controller or Backoffice <br />
+					2. Add annotation "@Menu" to the class declaration<br />
+					3. Add annotation "@SubMenu" on every method you want to call from the menu<br />
+					4. Configure the label displayed in messages ( "menu.class_name.method_name" )
+					
+				</p>
+				
+			</div>
+		</div>
+	</div>
+#{/if}
+<div class="row">
+	<div class="span6">
+		<h3>&{"vsbo.google.tools.title"}:</h3>
+		<p><a href="https://www.google.com/analytics/settings/?et=reset&hl=fr" class="btn" target="_blank">Google Analytics</a></p>
+		<p><a href="https://www.google.com/webmasters/tools/home?hl=fr" class="btn" target="_blank">Google Webmaster Tools</a></p>
+		<p><a href="https://www.google.com/adsense/v3/app?hl=fr" class="btn" target="_blank">Google Adsense</a></p>
+		<p><a href="https://adwords.google.com" class="btn" target="_blank">Google AdWords</a></p>
+	</div>
+</div>
