@@ -77,39 +77,27 @@
 			#{if play.mode.name() == 'DEV'}
 			<div class="row">
 				<div class="span15 offset1 info">
-					
-					<div id="warningLess" style="display:none">
-						VSBO utilise LESS pour compiler ses feuilles de style. Il faut ajouter le module au projet. Pour cela allez dans "dependencies.yml" et ajoutez la ligne:<br />
-						require:<br />
-					    - play<br />
-					    - play -> less 0.3<br /><br /><br />
-					    Vous devez ensuite passer les commandes play :<br />
-					    play deps<br />
-					    play eclipsify<br />
-					    Et redémarrer le projet...
-					</div>
-					
 					<div class="alert-message block-message info">
-						<p>Ce bloc n'est affiché qu'en mode dev:</p>
-						<p>Pour faire marcher l'authentification via Google suivez les étapes suivantes:</p>
-						<h1>1. Enregistrez votre application auprès de Google</h1>
+						<p>> This message is only displayed in dev mode:</p>
+						<p>Follow this instructions to configure Google authentification:</p>
+						<h1>1. Declare your application on Google</h1>
 						<p>
-							Allez sur <a href="https://code.google.com/apis/console#access">Google API</a>. <br />
-							Suivez les étapes pour générer un clientID.<br />
+							Go to <a href="https://code.google.com/apis/console#access">Google API</a>. <br />
+							Follow the steps to generate a Client ID.<br />
 							<br />
-							Attention, vous allez certainement devoir changer la valeur par défaut de "Redirect URIs":<br/>
-							Il faut qu'elle pointe vers "/vsbo/secure/auth" et le port 9000 ( utilisé par play )<br />
+							Warning: you certainly have to change the default value of "Redirect URIs".<br/>
+							This uri has to point to  "/vsbo/secure/auth" and port 9000?
 							<pre>
 http://www.mysampleproject.com:9000/vsbo/secure/auth
 							</pre>
 							
-							Créer un second clientID pour la prod (et ce coup ci vous ne mettrez pas le port 9000 dans la "redirect URIs")<br />
+							Genreate a second clientID for production<br />
 							<img src="@{'/public/images/googleapi.jpg'}" width="800px"/>
 							<br /><br />
 						</p>
-						<h1>2. Mettez à jour votre configuration</h1>
+						<h1>2. Update yout configuration</h1>
 						<p>
-							Dans le fichier application.conf vous devez mettre à jour <br />
+							Edit the application.conf file<br />
 							<pre>
 oAuth.ClientID=551654476579.apps.googleusercontent.com
 oAuth.ClientSecret=mqCaMfPUVtL4u_jcEPGp31mE
@@ -120,22 +108,22 @@ oAuth.JavaScriptOrigins=https://www.mysampleproject.com
 %prod.oAuth.JavaScriptOrigins=https://www.mysampleproject.com/vsbo/secure/auth
 							</pre>
 						</p>
-						<h1>3. Faites une redirection de votre nom de domaine en local</h1>
+						<h1>3. Redirect your domain name to local</h1>
 						<p>
-							Allez éditer le fichier C:\WINDOWS\system32\drivers\etc\hosts<br />
-							Exemple:<br />
+							On windows, edit C:\WINDOWS\system32\drivers\etc\hosts<br />
+							Example:<br />
 							<pre>
 127.0.0.1  localhost
 127.0.0.1 www.mysampleproject.com
 							</pre>
-							Enfin vous devez accéder à votre projet non plus par localhost mais par www.mysampleproject.com 
+							So you can now access to your project with the url www.mysampleproject.com (do not use localhost anymore) 
 						</p>
-						<h1>4. Première connexion</h1>
-						<p>A la première connexion il n'y a pas encore d'utilisateur enregistré en base de données.<br />
-							Il faut donc spécifier un (ou plusieurs) compte administrateur dans le fichier de configuration.
+						<h1>4. First connexion</h1>
+						<p>On first connexion, no user is already configured and save in database.<br />
+							So you have to specified one in application.conf
 							<pre>
-vsbo.admin=sylvain.gourio@gmail.com
-%prod.vsbo.admin=sylvain.gourio@gmail.com
+vsbo.admin=sgourio@gmail.com
+%prod.vsbo.admin=sgourio@gmail.com
 							</pre>
 						</p>
 					</div>
