@@ -1,0 +1,26 @@
+VSBO stand for Very Simple Back Office.
+
+It's a back-office module for play framework project.
+
+It's goal is to easily start a new Back-office on any application.
+You can connect to the back-office with your google account 
+
+How to start ?
+
+Import the project:
+In dependencies.yml :
+
+require:
+    - play
+    - vsbo -> vsbo
+
+
+Set route to the back-office
+
+# Import vsbo routes
+*      /vsbo	                                module:vsbo
+
+
+And update your language configuration (English and French are available).
+application.langs=fr,en
+
