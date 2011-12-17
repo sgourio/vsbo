@@ -4,31 +4,27 @@
  */
 package controllers.vsbo;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-
-import org.apache.commons.lang.StringUtils;
 
 import models.vsbo.Role;
 import models.vsbo.User;
+
+import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.i18n.Lang;
-import play.jobs.OnApplicationStart;
-import play.mvc.After;
+import play.modules.vsbo.Menu;
+import play.modules.vsbo.MenuServices;
+import play.modules.vsbo.SubMenu;
 import play.mvc.Before;
 import play.mvc.Controller;
-import play.mvc.Router;
 import play.mvc.With;
-import services.MenuServices;
-import controllers.vsbo.Secure;
 
 /**
  * Main functions of vsbo
@@ -197,7 +193,16 @@ public class Backoffice extends Controller{
 		}
 		
 		User user = connected();
-		List<beans.Menu > menu = MenuServices.getInstance().getMenuForRole(user.roles);
+		String menuIds = "";
+		boolean admin = false;
+		for( String roleId: user.roles.split(",")){
+			if( roleId.equals("admin")){
+				admin = true;
+			}else{
+				menuIds += Role.getByName(roleId).menuIds;
+			}
+		}
+		List<play.modules.vsbo.beans.Menu > menu = MenuServices.getInstance().getMenuForRole(menuIds, admin);
 		renderArgs.put("vsboMenu", menu);
 	}
 
@@ -215,7 +220,7 @@ public class Backoffice extends Controller{
 	 * @param id
 	 */
 	public static void editRole(Long id){
-		Collection<beans.Menu> menuList = MenuServices.getInstance().menuMap.values();
+		Collection<play.modules.vsbo.beans.Menu> menuList = MenuServices.getInstance().menuMap.values();
 		if( id == null ){
 			render(menuList);
 		}

@@ -1,0 +1,29 @@
+#{extends 'vsbo/layout.html' /}
+#{set title:'Home' /}
+#{set 'moreScripts'}
+#{/set}
+<div class="row">
+	<div class="span12">
+		<h1>&{"vsbo.user.list.title"}</h1>
+		<table class="zebra-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Email</th>
+					<th>&{"vsbo.user.table.title.roles"}</th>
+				</tr>
+			</thead>
+			<tbody>
+				#{list items:userList, as:'userL'}
+				<tr>
+					<td>${userL_index}</td>
+					<td><a href="@{vsbo.Backoffice.editUser(userL.id)}">${userL.email}</a></td>
+					<td>${userL.roles}</td>
+				</tr>
+				#{/list}
+			</tbody>
+		</table>
+		<a href="@{vsbo.Backoffice.editUser()}" class="btn">Créer un utilisateur</a>
+			
+	</div>
+</div>
