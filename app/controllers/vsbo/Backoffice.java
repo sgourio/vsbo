@@ -6,8 +6,10 @@ package controllers.vsbo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import models.vsbo.Role;
 import models.vsbo.User;
@@ -18,6 +20,7 @@ import play.Logger;
 import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.i18n.Lang;
 import play.modules.vsbo.Menu;
 import play.modules.vsbo.MenuServices;
@@ -64,13 +67,13 @@ public class Backoffice extends Controller{
 			connected().save();
 		}else{
 			if( !StringUtils.isBlank( oldPassword ) ){
-				validation.addError("vsbo.password.not.match", "vsbo.password.not.match");
+				Validation.addError("vsbo.password.not.match", "vsbo.password.not.match");
 			}
 		}
 		
-		if(validation.hasErrors()) {
+		if(Validation.hasErrors()) {
 	          params.flash(); // add http parameters to the flash scope
-	          validation.keep(); // keep the errors for the next request
+	          Validation.keep(); // keep the errors for the next request
 	      }
 		profil();
 	}
@@ -157,6 +160,7 @@ public class Backoffice extends Controller{
 	 */
 	public static void clearCache(){
 		Cache.clear();
+		MenuServices.getInstance().clearCache();
 		cache();
 	}
 	
@@ -184,26 +188,44 @@ public class Backoffice extends Controller{
 	protected static void setMenu(){
 		
 		try {
-			Class clazz = Class.forName("controllers."+request.controller);
-			Menu menu = (Menu) clazz.getAnnotation(Menu.class);
-			renderArgs.put("vsboMenuActive", menu.id());
+			Class<?> clazz = Class.forName("controllers."+request.controller);
+			if( clazz != null ){
+				Menu menu = (Menu) clazz.getAnnotation(Menu.class);
+				if( menu != null ){
+					renderArgs.put("vsboMenuActive", menu.id());
+				}
+			}
 		} catch (ClassNotFoundException e) {
 			Logger.error("", e);
-			e.printStackTrace();
 		}
 		
 		User user = connected();
-		String menuIds = "";
-		boolean admin = false;
-		for( String roleId: user.roles.split(",")){
-			if( roleId.equals("admin")){
-				admin = true;
+		List<play.modules.vsbo.beans.Menu > menuList = MenuServices.getInstance().getMenuFromCache(user.email);
+		if( menuList == null ){
+			Set<String> menuIds = new HashSet<String>();
+			boolean admin = false;
+			for( String roleId: user.roles.split(",")){
+				if( roleId.equals("admin")){
+					admin = true;
+					break;
+				}else{
+					Role role = Role.getByName(roleId);
+					if( role != null ){
+						for(String menuId : role.menuIds.split(",") ){
+							menuIds.add(menuId);
+						}
+					}
+					
+				}
+			}
+			if( admin ){
+				menuList = MenuServices.getInstance().getAllMenus(user.email);
 			}else{
-				menuIds += Role.getByName(roleId).menuIds;
+				menuList = MenuServices.getInstance().getMenuByIds(user.email, menuIds);
 			}
 		}
-		List<play.modules.vsbo.beans.Menu > menu = MenuServices.getInstance().getMenuForRole(menuIds, admin);
-		renderArgs.put("vsboMenu", menu);
+		
+		renderArgs.put("vsboMenu", menuList);
 	}
 
 	/**
@@ -258,12 +280,13 @@ public class Backoffice extends Controller{
 				menuIds +="," + paramKey.substring("subMenu_".length());
 			}
 		}
-		Cache.safeDelete("menu_" + role.name);
+		
 		if( menuIds.length() > 0 ){
 			menuIds = menuIds.substring(1);
 		}
 		role.menuIds = menuIds;
 		role.save();
+		MenuServices.getInstance().clearCache();
 		roleList();
 	}
 	

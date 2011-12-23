@@ -4,8 +4,6 @@
  */
 package play.modules.vsbo.beans;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Toolbar sub menu

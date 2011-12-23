@@ -26,7 +26,7 @@ public class BackofficePlugin extends PlayPlugin{
 		MenuServices.getInstance().menuMap = new HashMap<String, play.modules.vsbo.beans.Menu>();
 		
 		List<Class<?>> controllers = new ArrayList<Class<?>>();
-        for (Class clazz : Play.classloader.getAllClasses()) {
+        for (Class<?> clazz : Play.classloader.getAllClasses()) {
             if (Controller.class.isAssignableFrom(clazz)) {
                 controllers.add(clazz);
             }
@@ -47,8 +47,8 @@ public class BackofficePlugin extends PlayPlugin{
         		play.modules.vsbo.beans.Menu menu = new play.modules.vsbo.beans.Menu(menuAnnotation.id(), "menu." + clazz.getName(), link);
         		MenuServices.getInstance().registrerMenu(menu);
             	
-        		// trouver les methods de cette classe (et seulement de celle la)
-        		Class superClass = clazz.getSuperclass();
+        		// trouver les methods de cette classe (et seulement de celles la)
+        		Class<?> superClass = clazz.getSuperclass();
         		List<Method> superClassMethod = new ArrayList<Method>();
         		for( Method method : superClass.getMethods() ){
         			superClassMethod.add(method);
