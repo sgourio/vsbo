@@ -19,6 +19,7 @@ vsbo.login.button.google=Connect with Google
 
 vsbo.button.clear.cache=Clear cache
 vsbo.button.save=Save
+vsbo.button.delete=Delete
 
 vsbo.index.title=Welcome on %s back-office
 vsbo.google.tools.title=Google tools

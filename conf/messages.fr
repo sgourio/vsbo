@@ -15,6 +15,7 @@ vsbo.login.button.google=Connexion avec Google
 
 vsbo.button.clear.cache=Vider le cache
 vsbo.button.save=Enregistrer
+vsbo.button.delete=Supprimer
 
 vsbo.user.list.title=Liste des utilisateurs
 
