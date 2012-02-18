@@ -10,25 +10,30 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
-import play.Logger;
 import play.Play;
 import play.PlayPlugin;
 import play.mvc.Controller;
 
 public class BackofficePlugin extends PlayPlugin{
+	private static final Logger logger = Logger.getLogger(BackofficePlugin.class);
 
 	/**
 	 * Constuct vsbo menu
 	 */
 	@Override
 	public void afterApplicationStart() {
+		logger.info("Initialize VSBO: registrer menus");
 		MenuServices.getInstance().menuMap = new HashMap<String, play.modules.vsbo.beans.Menu>();
 		
 		List<Class<?>> controllers = new ArrayList<Class<?>>();
         for (Class<?> clazz : Play.classloader.getAllClasses()) {
             if (Controller.class.isAssignableFrom(clazz)) {
                 controllers.add(clazz);
+                if( logger.isDebugEnabled() ){
+        			logger.debug("Controller found : " + clazz.getName());
+        		}
             }
         }
 	    
@@ -43,7 +48,9 @@ public class BackofficePlugin extends PlayPlugin{
         		if( StringUtils.isEmpty(link)){
         			link = null;
         		}
-        		Logger.info("add menu " +  clazz.getName() );
+        		if( logger.isDebugEnabled() ){
+        			logger.debug("Registrer menus for class " +  clazz.getName() );
+        		}
         		play.modules.vsbo.beans.Menu menu = new play.modules.vsbo.beans.Menu(menuAnnotation.id(), "menu." + clazz.getName(), link);
         		MenuServices.getInstance().registrerMenu(menu);
             	
@@ -56,7 +63,9 @@ public class BackofficePlugin extends PlayPlugin{
         		
             	for( Method method : clazz.getMethods()){
 					if( !superClassMethod.contains(method) &&  method.isAnnotationPresent(SubMenu.class)){
-						Logger.info("add menu " + method.getName() );
+						if( logger.isDebugEnabled() ){
+		        			logger.debug("Registrer menus linked to method " +  method.getName() );
+		        		}
 						SubMenu subMenuAnnotation = method.getAnnotation(SubMenu.class);
 		        		link = subMenuAnnotation.link();
 		        		if( StringUtils.isEmpty(link)){

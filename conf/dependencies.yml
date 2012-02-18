@@ -1,4 +1,4 @@
-self: play -> vsbo 0.3
+self: play -> vsbo 0.4
 
 require:
     - play
