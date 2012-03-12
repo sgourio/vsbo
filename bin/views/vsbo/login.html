@@ -4,12 +4,13 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap.min.css'}">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/vsbo.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/vsbo/bootstrap/css/bootstrap.min.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/vsbo/bootstrap/css/bootstrap-responsive.min.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/vsbo/css/vsbo.css'}">
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="UTF-8"></script>
-        <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="UTF-8"></script> 
+        <script src="@{'/public/javascripts/jquery-1.7.1.min.js'}" type="text/javascript" charset="UTF-8"></script>
+        <script src="@{'/public/vsbo/bootstrap/js/bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
         <script type="text/javascript">
 			$(document).ready(function(){
 			 });
@@ -18,8 +19,8 @@
     </head>
     <body #{if play.mode.name() == 'DEV'}class="dev"#{/if}>
 
-    	<div class="topbar">
-	      <div class="fill">
+    	<div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
 	        <div class="container">
 	          <a class="brand" href="@{vsbo.Backoffice.index()}">${play.configuration.getProperty("application.name")}</a>
 	        </div>
@@ -33,12 +34,11 @@
 	    	</div>
 	    	#{form @vsbo.Secure.vsboAuth()}
 	    	<div class="row">
-	    		<div class="span8">
+	    		<div class="span6">
 		    		#{if errorMessage}
 		    			<p class="alert-message block-message error">${errorMessage}</p>
 		    		#{/if}
 		    		<h3>&{"vsbo.login.connect.with.account.title", play.configuration.getProperty("application.name")}</h3>
-	    			 <div class="clearfix">
 				        #{field 'email'}
 				        <label>Email: </label>
 				        <div class="input">
@@ -46,38 +46,30 @@
 				        </div>
 				        #{/field}
 				       
-				    </div>
-				    <div class="clearfix">
 				     #{field 'password'}
 				        <label>&{"vsbo.login.password"}: </label>
 				        <div class="input">
 				        	<input type="password" name="${field.name}" value="" class="${field.errorClass}" size="50" />
 				        </div>
 				     #{/field}
-	    			</div>
+				     <div class="">
+			    		<input type="submit" value="&{'vsbo.login.button.connect'}" class="btn btn-primary"/>
+			    	</div>
 		    		
 		    	</div>
-		    	<div class="span8">
+		    	<div class="span6">
 		    		<h3>&{"vsbo.login.connect.with.google.title"}</h3>
+		    		<div class="">
+		    			<a href="@{vsbo.Secure.auth()}" class="btn btn-primary">&{"vsbo.login.button.google"}</a>
+		    		</div>
 		    	</div>
 		    </div>
-	    	<div class="row">
-	    		<div class="span8">
-	    			<div class="actions">
-			    		<input type="submit" value="&{'vsbo.login.button.connect'}" class="btn primary"/>
-			    	</div>
-	    		</div>
-	    		<div class="span8">
-	    			<div class="actions">
-		    			<a href="@{vsbo.Secure.auth()}" class="btn primary">&{"vsbo.login.button.google"}</a>
-		    		</div>
-	    		</div>
-	    	</div>
+	    	
 	    	#{/form}
 			#{if play.mode.name() == 'DEV'}
 			<div class="row">
-				<div class="span15 offset1 info">
-					<div class="alert-message block-message info">
+				<div class="span11 offset1 info">
+					<div class="alert alert-info">
 						<p>> This message is only displayed in dev mode:</p>
 						<p>Follow this instructions to configure Google authentification:</p>
 						<h1>1. Declare your application on Google</h1>

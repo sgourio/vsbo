@@ -4,32 +4,39 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap.min.css'}">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/vsbo.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/vsbo/bootstrap/css/bootstrap.min.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/vsbo/bootstrap/css/bootstrap-responsive.min.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/vsbo/css/vsbo.css'}">
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="UTF-8"></script>
-        <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="UTF-8"></script>
+        <script src="@{'/public/javascripts/jquery-1.7.1.min.js'}" type="text/javascript" charset="UTF-8"></script>
+        <script src="@{'/public/vsbo/bootstrap/js/bootstrap.min.js'}" type="text/javascript" charset="UTF-8"></script>
+        <script src="@{'/public/vsbo/bootstrap/js/bootstrap-dropdown.js'}" type="text/javascript" charset="UTF-8"></script>
         <script type="text/javascript">
 			$(document).ready(function(){
+				$('.dropdown-toggle').dropdown();
 			 });
 		</script>
         #{get 'moreScripts' /}
     </head>
     <body #{if play.mode.name() == 'DEV'}class="dev"#{/if}>
     
-    	<div class="topbar">
-	      <div class="fill">
+    
+  
+    
+    	<div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
 	        <div class="container">
 	          <a class="brand" href="@{vsbo.Backoffice.index()}">${play.configuration.getProperty("application.name")}</a>
+	          
 	          <ul class="nav">
 	            #{list items:vsboMenu, as:'menu'}
 	            	#{if menu.subMenuList.isEmpty() }
 	            		<li class="${vsboMenuActive == menu.id ? 'active' : ''}" id="${menu.id}"><a href="${menu.link}">&{menu.text}</a></li>
 	            	 #{/if}
 	            	 #{else}
-			           	  <li class="dropdown ${vsboMenuActive == menu.id ? 'active' : ''}" data-dropdown="dropdown" id="${menu.id}">
-						    <a href="#" class="dropdown-toggle">&{ menu.text }</a>
+			           	  <li class="dropdown ${vsboMenuActive == menu.id ? 'active' : ''}" id="${menu.id}">
+						    <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{ menu.text }<b class="caret"></b></a>
 						    <ul class="dropdown-menu">
 						   	  #{list items:menu.subMenuList, as:'subMenu'}
 						      	<li><a href="${subMenu.link}">&{ subMenu.text }</a></li>
@@ -38,13 +45,11 @@
 						  </li>
 	            	 #{/else}
 	            #{/list}
-	            
-	             
 	          </ul>
 	          <div class="pull-right">
 	           <ul class="nav">
-	           	  <li class="dropdown" data-dropdown="dropdown" >
-				    <a href="#" class="dropdown-toggle">${user.email}</a>
+	           	  <li class="dropdown">
+				    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> ${user.email}<b class="caret"></b></a>
 				    <ul class="dropdown-menu">
 				      <li><a href="@{vsbo.Backoffice.profil()}">Mon profil</a></li>
 				      <li class="divider"></li>
@@ -58,7 +63,7 @@
 	    </div>
     	<div class="container">
         	#{doLayout /}
-        	<footer>
+        	<footer class="footer">
 		        <p>© Sylvain Gourio 2011</p>
 		    </footer>
         </div>

@@ -25,23 +25,17 @@
 		    <div class="clearfix">
 		    	<label>&{ "vsbo.role.authorized.menus" }: </label>
 		    	<div class="input">
-			    	<ul class="inputs-list">
 			    	#{list items:menuList, as:'menu'}
-			    		<li>
-			    			<label for="menu_${menu.id}"><input type="checkbox" name="menu_${menu.id}" id="menu_${menu.id}" #{if menuRoleList?.contains(menu.id)}checked="true"#{/if}/> &{menu.text}</label>
+			    			<label for="menu_${menu.id}" class="checkbox"><input type="checkbox" name="menu_${menu.id}" id="menu_${menu.id}" #{if menuRoleList?.contains(menu.id)}checked="true"#{/if}/> &{menu.text}</label>
 			    		#{ifnot menu.subMenuList.isEmpty() }
-						    <ul>
 						   	  #{list items:menu.subMenuList, as:'subMenu'}
-						      	<li><label for="subMenu_${subMenu.id}"><input type="checkbox" name="subMenu_${subMenu.id}" id="subMenu_${subMenu.id}" #{if menuRoleList?.contains(subMenu.id)}checked="true"#{/if}/> &{ subMenu.text }</label></li>
+						      	<label for="subMenu_${subMenu.id}" class="checkbox offset1"><input type="checkbox" name="subMenu_${subMenu.id}" id="subMenu_${subMenu.id}" #{if menuRoleList?.contains(subMenu.id)}checked="true"#{/if}/> &{ subMenu.text }</label>
 						      #{/list}
-						    </ul>
 		            	 #{/ifnot}
-		            	 </li>
 			    	#{/list}
-			    	</ul>
 		    	</div>
 		    </div>
-		    <input type="submit" value="&{ 'vsbo.button.save' }" class="btn primary"/>
+		    <input type="submit" value="&{ 'vsbo.button.save' }" class="btn btn-primary"/>
 		#{/form}
 		
 	</div>

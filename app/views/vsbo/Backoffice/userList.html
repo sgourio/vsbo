@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="span12">
 		<h1>&{"vsbo.user.list.title"}</h1>
-		<table class="zebra-striped">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>#</th>
@@ -16,14 +16,14 @@
 			<tbody>
 				#{list items:userList, as:'userL'}
 				<tr>
-					<td>${userL_index}</td>
+					<td>${userL_index} <i class="icon-user"></i></td>
 					<td><a href="@{vsbo.Backoffice.editUser(userL.id)}">${userL.email}</a></td>
 					<td>${userL.roles}</td>
 				</tr>
 				#{/list}
 			</tbody>
 		</table>
-		<a href="@{vsbo.Backoffice.editUser()}" class="btn">Créer un utilisateur</a>
+		<a href="@{vsbo.Backoffice.editUser()}" class="btn btn-primary">Créer un utilisateur</a>
 			
 	</div>
 </div>

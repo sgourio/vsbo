@@ -35,19 +35,14 @@
 		    <div class="clearfix">
 		    	<label>&{"vsbo.user.table.title.roles"}: </label>
 		    	<div class="input">
-			    	<ul class="inputs-list">
-			    		<li>
-			    			<label for="role_admin"><input type="checkbox" name="role_admin" id="role_admin" #{if userRoleList?.contains("admin")}checked="true"#{/if}/> admin</label>
-		            	</li>
+			    			<label for="role_admin" class="checkbox"><input type="checkbox" name="role_admin" id="role_admin" #{if userRoleList?.contains("admin")}checked="true"#{/if}/> admin</label>
 			    	#{list items:roleList, as:'role'}
-			    		<li>
-			    			<label for="role_${role.id}"><input type="checkbox" name="role_${role.name}" id="role_${role.id}" #{if userRoleList?.contains(role.name)}checked="true"#{/if}/> ${role.name}</label>
-		            	 </li>
+			    			<label for="role_${role.id}" class="checkbox"><input type="checkbox" name="role_${role.name}" id="role_${role.id}" #{if userRoleList?.contains(role.name)}checked="true"#{/if}/> ${role.name}</label>
 			    	#{/list}
 			    	</ul>
 		    	</div>
 		    </div>
-		    <input type="submit" value="&{'vsbo.button.save'}" class="btn primary"/>
+		    <input type="submit" value="&{'vsbo.button.save'}" class="btn btn-primary"/>
 		#{/form}
 		
 	</div>
