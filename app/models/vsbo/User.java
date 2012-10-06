@@ -47,6 +47,7 @@ public class User extends Model {
     
     public static User findUser(String email, String realPassword){
     	String pass = encodePassword(realPassword);
+    	logger.info("email " + email +" encoded pass : " +pass);
     	return find("byEmailAndPassword", email, pass).first();
     }
 

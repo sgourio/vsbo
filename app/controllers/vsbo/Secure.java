@@ -101,7 +101,8 @@ public class Secure extends Controller{
         String clientSecret = Play.configuration.getProperty("oAuth.ClientSecret");
         String authorizationURL = "https://accounts.google.com/o/oauth2/auth";
         String tokenURL = "https://accounts.google.com/o/oauth2/token";
-        String callBack = play.mvc.Router.getFullUrl("vsbo.Secure.auth");
+        String appBaseUrl = Play.configuration.getProperty("application.baseUrl", "application.baseUrl");
+        String callBack = appBaseUrl + play.mvc.Router.reverse("vsbo.Secure.auth").url;
         String scope = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile";
 
         
