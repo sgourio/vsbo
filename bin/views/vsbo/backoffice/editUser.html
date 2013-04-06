@@ -39,7 +39,6 @@
 			    	#{list items:roleList, as:'role'}
 			    			<label for="role_${role.id}" class="checkbox"><input type="checkbox" name="role_${role.name}" id="role_${role.id}" #{if userRoleList?.contains(role.name)}checked="true"#{/if}/> ${role.name}</label>
 			    	#{/list}
-			    	</ul>
 		    	</div>
 		    </div>
 		    <input type="submit" value="&{'vsbo.button.save'}" class="btn btn-primary"/>
