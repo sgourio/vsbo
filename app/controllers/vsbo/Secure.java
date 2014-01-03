@@ -68,7 +68,7 @@ public class Secure extends Controller{
         }
     }
 	
-	@Before(unless={"auth"})
+	@Before(unless={"auth","vsboAuth"})
 	static void controlAccess() {
 		User user = connected();
 		if( user == null ){
